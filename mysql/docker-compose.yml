@@ -1,0 +1,14 @@
+mysql-srv:
+  image: mysql:latest
+  environment:
+    - MYSQL_ROOT_PASSWORD=my-secret-pw
+  volumes:
+    - ./db/:/docker-entrypoint-initdb.d
+
+salt:
+  image: salt-cent7
+  volumes:
+    - ~/git/salt/:/testing
+  links:
+    - mysql-srv:mysql
+  entrypoint: tail -f /dev/null
